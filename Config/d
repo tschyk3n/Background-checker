@@ -1,0 +1,192 @@
+const normalGroupInfo = [
+  { groupId: 17231392, groupName: 'Delta Squad', channelId: '1119260829817249862' },
+  { groupId: 17202621, groupName: 'Charlie Squad', channelId: '1119260697361133598' },
+  { groupId: 16428908, groupName: 'Bravo Squad', channelId: '1119260725697847296' },
+  { groupId: 16553831, groupName: '109th Machinery', channelId: '1119260795759493170' },
+  { groupId: 32032445, groupName: 'Foxtrot Squad', channelId: '1119260757763313674' },
+  { groupId: 5902649, groupName: '109th', channelId: '1119260771981991936' },
+  { groupId: 16909177, groupName: 'Echo Squad', channelId: '1119260564342976574' },
+  { groupId: 16467057, groupName: 'Soviet Βorder Τrooper', channelId: '1119269825890492586' },
+  { groupId: 13300850, groupName: 'Army Education and Enrollment Command', channelId: '1119269952302633041' },
+  { groupId: 5737557, groupName: 'Camouflaged Reconnaissance Unit', channelId: '1119270118652915836' },
+  { groupId: 5687123, groupName: 'The Facility Operations Command', channelId: '1119270143877455974' },
+  { groupId: 4948472, groupName: 'The 5th Rifle Division', channelId: '1119270188097998988' },
+  { groupId: 4808054, groupName: 'Spetsnaz .' , channelId: '1119270216480854137' }, 
+  { groupId: 4805092, groupName: 'The Committee for State Security .', channelId: '1119270227914539049' },
+  { groupId: 4805062, groupName: 'The Red Guard .', channelId: '1119270258713305208' }, 
+  { groupId: 4809040, groupName: 'Officers Academy .', channelId: '1119270290124455967' },
+  { groupId: 4849673, groupName: 'Congress of the Communist Party', channelId: '1119270324668743700' },
+  { groupId: 5855498, groupName: 'The Soviet Media', channelId: '1119270345485074442' },
+  { groupId: 5117666, groupName: 'Biopreparat', channelId: '1119270370369884161' },
+  { groupId: 4849688, groupName: 'Ministry of Defense .', channelId: '1119270389793689723' },
+  { groupId: 6018695, groupName: 'OMON .', channelId: '1119270410559688734' },  
+  { groupId: 11934361, groupName: 'Militsiya Detective Division', channelId: '1119270420298879037' },
+
+];
+
+const getGroupMembers = async (groupId) => {
+  let members = [];
+  let nextCursor = '';
+
+  do {
+    const response = await axios.get(`https://groups.roblox.com/v1/groups/${groupId}/users?limit=100${nextCursor === '' ? '' : '&cursor=' + nextCursor}&sortOrder=Asc`);
+    const data = response.data;
+
+    members = members.concat(data.data.map((member) => ({
+      groupId,
+      groupName: normalGroupInfo.find((group) => group.groupId === groupId).groupName,
+      username: member.user.username,
+      userId: member.user.userId,
+      rankName: member.role.name,
+    })));
+
+    if (data.nextPageCursor) {
+      nextCursor = data.nextPageCursor;
+    } else {
+      nextCursor = '';
+    }
+  } while (nextCursor !== '');
+
+  return members;
+};
+
+const filePath = path.join(__dirname, 'Config', '109thMembers.json');
+
+const saveToJsonFile = (data, filePath) => {
+  const jsonData = JSON.stringify(data, null, 2);
+  fs.writeFileSync(filePath, jsonData);
+};
+
+const getAllGroupMembers = async () => {
+  let existingMembers = fs.existsSync(filePath) ? JSON.parse(fs.readFileSync(filePath)) : [];
+  const addedMembers = [];
+  const removedMembers = [];
+  const updatedMembers = [];
+  let hasChanges = false;
+
+  const groupChannelMap = {};
+  for (const group of normalGroupInfo) {
+    groupChannelMap[group.groupId] = group.channelId;
+  }
+
+  for (const group of normalGroupInfo) {
+    const members = await getGroupMembers(group.groupId);
+    const existingMembersInGroup = existingMembers.filter((member) => member.groupId === group.groupId);
+
+    for (const member of members) {
+      const isExisting = existingMembersInGroup.some((existingMember) => existingMember.userId === member.userId);
+
+      if (!isExisting) {
+        addedMembers.push({
+          userId: member.userId,
+          username: member.username,
+          group: member.groupName,
+        });
+        existingMembers.push(member);
+        hasChanges = true;
+        const channelId = groupChannelMap[group.groupId];
+        sendLogMessage(member, `**joined** and is the rank **${member.rankName}** in the group`, channelId);
+      } else {
+        const existingMember = existingMembers.find((existing) => existing.userId === member.userId && existing.groupId === member.groupId);
+        if (existingMember.rankName !== member.rankName) {
+          existingMember.rankName = member.rankName;
+          updatedMembers.push({
+            userId: member.userId,
+            username: member.username,
+            group: member.groupName,
+            oldRank: existingMember.rankName,
+            newRank: member.rankName,
+          });
+          hasChanges = true;
+          const channelId = groupChannelMap[group.groupId];
+          sendLogMessage(member, `rank has changed from **${existingMember.rankName}**(wrong) to **${member.rankName}** in the group`, channelId);
+        }
+      }
+    }
+
+    for (const existingMember of existingMembersInGroup) {
+      const isStillInGroup = members.some((member) => member.userId === existingMember.userId);
+    
+      if (!isStillInGroup) {
+        removedMembers.push({
+          userId: existingMember.userId,
+          username: existingMember.username,
+          group: existingMember.groupName,
+          rank: existingMember.rankName,
+        });
+        existingMembers = existingMembers.filter((member) => member.userId !== existingMember.userId || member.groupId !== existingMember.groupId);
+        hasChanges = true;
+        const channelId = groupChannelMap[group.groupId];
+        sendLogMessage(existingMember, `**discharged**/ was **exiled** and was the rank **${existingMember.rankName}** in the group`, channelId);
+      }
+    }
+  }
+
+  if (hasChanges) {
+    if (addedMembers.length > 0) {
+      console.log('Added Members:');
+      addedMembers.forEach((member) => {
+        console.log(`[${member.username}] (${member.userId}) joined [${member.group}] and is the rank [${member.rank}]`);
+      });
+    }
+
+    if (removedMembers.length > 0) {
+      console.log('Removed Members:');
+      removedMembers.forEach((member) => {
+        console.log(`[${member.username}] (${member.userId}) discharged/was exiled from [${member.group}] and was the rank [${member.rank}]`);
+      });
+    }
+
+    if (updatedMembers.length > 0) {
+      console.log('Updated Members:');
+      updatedMembers.forEach((member) => {
+        console.log(`[${member.username}] (${member.userId}) has a new rank [${member.oldRank}] (wrong) -> [${member.newRank}] in [${member.group}]`);
+      });
+    }
+
+    setTimeout(() => {
+      saveToJsonFile(existingMembers, filePath);
+    },2 * 60 * 1000); // 2 * 60 * 1000
+  } else {
+    console.log('No changes. Nothing added, removed, or updated in the JSON file.');
+  }
+};
+
+const sendLogMessage = (member, action, channelId) => {
+  let color;
+
+  if (action.includes('exiled') || action.includes('discharged')) {
+    color = '#960a00'; // Red color for exiled/discharged
+  } else if (action.includes('new rank')) {
+    color = '#eac802'; // Yellow color for rank updated
+  } else {
+    color = '#55af17'; // Green color for group joined
+  }
+
+  const embed = new MessageEmbed()
+    .setTitle('Changes have been made!')
+    .setDescription(`**${member.username}** (${member.userId}) ${action}`)
+    .setColor(color)
+    .setTimestamp();
+
+  client.channels
+    .fetch(channelId)
+    .then((channel) => {
+      if (channel.isText()) {
+        channel
+          .send({ embeds: [embed] })
+          .catch((error) => {
+            console.error('Failed to send message:', error);
+          });
+      } else {
+        console.error(`Channel with ID ${channelId} is not a text channel.`);
+      }
+    })
+    .catch((error) => {
+      console.error('Failed to fetch channel:', error);
+    });
+};
+
+
+getAllGroupMembers();
+setInterval(getAllGroupMembers, 5 * 60 * 1000);

@@ -1,0 +1,150 @@
+{
+  "5902649": {
+
+    "roleIds": [
+      38643690, 38643689, 39260128, 39260130, 39260196, 39260201, 93263666,
+      39260204, 93263471, 39260216, 39260222, 39260233, 39260257, 78969646,
+      41659022, 38643688, 38643687
+    ],
+    "ranks": [
+      { "role": "Guest", "rankName": "Guest" },
+      { "role": "Junior Heavy Infantry", "rankName": "Junior Heavy Infantry" },
+      { "role": "Heavy Infantry", "rankName": "Heavy Infantry" },
+      { "role": "Senior Heavy Infantry", "rankName": "Senior Heavy Infantry" },
+      { "role": "Junior Engineer", "rankName": "Junior Engineer" },
+      { "role": "Engineer", "rankName": "Engineer" },
+      { "role": "Squad Commandant", "rankName": "Squad Commandant" },
+      { "role": "Senior Engineer", "rankName": "Senior Engineer" },
+      { "role": "Chief Engineer", "rankName": "Chief Engineer" },
+      { "role": "Specialist", "rankName": "Specialist" },
+      { "role": "Squad Leader", "rankName": "Squad Leader" },
+      { "role": "Deputy Commander", "rankName": "Commander" },
+      { "role": "Overseer", "rankName": "Overseer" },
+      { "role": "Staff", "rankName": "Staff" },
+      { "role": "Deputy Premier", "rankName": "Deputy Premier" },
+      { "role": "Glorious Premier", "rankName": "Glorious Premier" }
+    ]
+  },
+  "16909177": {
+   
+    "roleIds": [
+      94292830, 94292829, 94294200, 94294196, 94293046, 94292828, 94293050,
+      94292827
+    ],
+    "ranks": [
+      { "role": "Guest", "rankName": "Guest" },
+      { "role": "Echo Instructor", "rankName": "Echo Instructor" },
+      { "role": "Echo Officer", "rankName": "Echo Officer" },
+      { "role": "109th Officer", "rankName": "109th Officer" },
+      { "role": "Executive", "rankName": "Executive" },
+      { "role": "Commander", "rankName": "Commander" },
+      { "role": "109th HICOM", "rankName": "109th HICOM" },
+      { "role": "Group Management", "rankName": "Group Management" }
+    ]
+  },
+  "32032445": {
+   
+    "roleIds": [96970492, 96970491, 96970490, 96970489],
+    "ranks": [
+      { "role": "Guest", "rankName": "Guest" },
+      { "role": "Internal Affairs", "rankName": "Internal Affairs" },
+      { "role": "109th High Command", "rankName": "109th High Command" },
+      { "role": "Holder", "rankName": "Holder" }
+    ]
+  },
+  "16553831": {
+    
+    "roleIds": [
+      92538166, 95555449, 95555440, 95555438, 95555436, 95555430, 92538165,
+      95555421, 92539795, 92538164, 96941081, 92538163
+    ],
+    "ranks": [
+      { "role": "Guest", "rankName": "Guest" },
+      { "role": "Trial Tester", "rankName": "Trial Tester" },
+      { "role": "Machinery Tester", "rankName": "Machinery Tester" },
+      { "role": "Experienced Tester", "rankName": "Experienced Tester" },
+      { "role": "Trial Developer", "rankName": "Trial Developer" },
+      { "role": "Machinery Developer", "rankName": "Machinery Developer" },
+      { "role": "Machinery Hand", "rankName": "Machinery Hand" },
+      { "role": "Assistant Lead Hand", "rankName": "Assistant Lead Hand" },
+      { "role": "Lead Hand", "rankName": "Lead Hand" },
+      { "role": "Machinery Overseers", "rankName": "Machinery Overseers" },
+      { "role": "Head Overseer", "rankName": "Head Overseer" },
+      { "role": "Higher Machinery", "rankName": "Higher Machinery" }
+    ]
+  },
+  "16428908": {
+   
+    "roleIds": [
+      91890642, 91890641, 92157121, 92106928, 92106929, 92106930, 92106935,
+      95483839, 92106937, 92106942, 92106951, 92106952, 95444281, 92106926,
+      91890640, 91890639
+    ],
+    "ranks": [
+      { "role": "Guest", "rankName": "Guest" },
+      { "role": "Junior Operative", "rankName": "Junior Operative" },
+      { "role": "Operative", "rankName": "Operative" },
+      { "role": "Senior Operative", "rankName": "Senior Operative" },
+      { "role": "Chief Operative", "rankName": "Chief Operative" },
+      { "role": "Chief Lieutenant", "rankName": "Chief Lieutenant" },
+      { "role": "Trial Squad Officer", "rankName": "Trial Squad Officer" },
+      { "role": "Tester", "rankName": "Tester" },
+      { "role": "Squad Officer", "rankName": "Squad Officer" },
+      { "role": "Squad Senior Officer", "rankName": "Squad Senior Officer" },
+      {
+        "role": "Squad Lieutenant Officer",
+        "rankName": "Squad Lieutenant Officer"
+      },
+      { "role": "Chief Squad Officer", "rankName": "Chief Squad Officer" },
+      { "role": "Developer", "rankName": "Developer" },
+      { "role": "Bravo HICOM", "rankName": "Bravo HICOM" },
+      { "role": "Overseer", "rankName": "Overseer" },
+      { "role": "Commander", "rankName": "Commander" }
+    ]
+  },
+  "17202621": {
+   
+    "roleIds": [
+      95759066, 97335683, 97335672, 97335670, 97335663, 95759065, 96176243,
+      96176319, 96176323, 96176347, 95788246, 95761406, 95761294, 96157038,
+      95927034, 95759064, 95759063
+    ],
+    "ranks": [
+      { "role": "Guest", "rankName": "Guest" },
+      { "role": "Trainee", "rankName": "Trainee" },
+      { "role": "Junior Scout", "rankName": "Junior Scout" },
+      { "role": "Scout", "rankName": "Scout" },
+      { "role": "Skilled Scout", "rankName": "Skilled Scout" },
+      { "role": "Advanced Scout", "rankName": "Advanced Scout" },
+      { "role": "Senior Scout", "rankName": "Senior Scout" },
+      { "role": "Chief Scout", "rankName": "Chief Scout" },
+      { "role": "Veteran Scout", "rankName": "Veteran Scout" },
+      { "role": "Elite Scout", "rankName": "Elite Scout" },
+      { "role": "Game Developer", "rankName": "Game Developer" },
+      { "role": "Squad Officer", "rankName": "Squad Officer" },
+      { "role": "Senior Squad  Officer", "rankName": "Senior Squad  Officer" },
+      { "role": "Squad XO", "rankName": "Squad XO" },
+      { "role": "Squad CO", "rankName": "Squad CO" },
+      { "role": "Overseer", "rankName": "Overseer" },
+      { "role": "Creator", "rankName": "Creator" }
+    ]
+  },
+  "17231392": {
+ 
+    "roleIds": [
+      95907225, 95907224, 95907268, 95907263, 95907248, 95907290, 95907562,
+      95907223, 95907222
+    ],
+    "ranks": [
+      { "role": "Guest", "rankName": "Guest" },
+      { "role": "REGULAR", "rankName": "REGULAR" },
+      { "role": "MEDIC", "rankName": "MEDIC" },
+      { "role": "ELITE", "rankName": "ELITE" },
+      { "role": "GODLY", "rankName": "GODLY" },
+      { "role": "OFFICER", "rankName": "OFFICER" },
+      { "role": "HICOM", "rankName": "HICOM" },
+      { "role": "OVERSEER", "rankName": "OVERSEER" },
+      { "role": "LEADER", "rankName": "LEADER" }
+    ]
+  }
+}
